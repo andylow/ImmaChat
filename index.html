@@ -1,0 +1,138 @@
+<!doctype HTML>
+<html>
+
+<head>
+  <title>Whatsapp API</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <script defer src="https://use.fontawesome.com/releases/v5.0.7/js/all.js"></script>
+  <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.1/css/bulma.min.css" />
+
+  <style>
+    html,
+    body {
+      font-family: 'Open Sans', serif;
+      font-size: 14px;
+      font-weight: 300;
+    }
+
+    .hero.is-success {
+      background: #F2F6FA;
+    }
+
+    .hero .nav,
+    .hero.is-success .nav {
+      -webkit-box-shadow: none;
+      box-shadow: none;
+    }
+
+    .box {
+      margin-top: 5rem;
+    }
+
+    .avatar {
+      margin-top: -70px;
+      padding-bottom: 20px;
+    }
+
+    .avatar img {
+      padding: 5px;
+      background: #fff;
+      border-radius: 15%;
+      -webkit-box-shadow: 0 2px 3px rgba(10, 10, 10, .1), 0 0 0 1px rgba(10, 10, 10, .1);
+      box-shadow: 0 2px 3px rgba(10, 10, 10, .1), 0 0 0 1px rgba(10, 10, 10, .1);
+      height: 128px;
+    }
+
+    input {
+      font-weight: 300;
+    }
+
+    p {
+      font-weight: 700;
+    }
+
+    p.subtitle {
+      padding-top: 1rem;
+    }
+
+    #logo {
+      font-size: 72pt;
+      border: solid 5px;
+      border-radius: 25%;
+      padding: 10px;
+      background: white;
+      color: #1496ed;
+    }
+  </style>
+</head>
+
+<body>
+  <section class="hero">
+    <div class="hero-body">
+      <section class="hero is-success">
+        <div class="hero-body">
+          <div class="container has-text-centered">
+            <div class="column is-4 is-offset-4">
+              <h3 class="title has-text-grey">ImmaChat</h3>
+              <p class="subtitle has-text-grey">A quick way to chat with WhatsApp.</p>
+              <div class="box">
+                <figure class="avatar">
+                  <!-- <img id="logo" src="logo.png"> -->
+                  <i id="logo" class="fas fa-comments"></i>
+                </figure>
+                <form>
+                  <div class="field">
+                    <div class="control">
+                      <select name="country" class="input is-large" required>
+                        <option value="60" selected>Malaysia (+60)</option>
+                      </select>
+                    </div>
+                  </div>
+                  <div class="field">
+                    <div class="control">
+                      <input name="phone" class="input is-large" type="tel" placeholder="Phone Number" autofocus="" required>
+                    </div>
+                  </div>
+                  <button id="send" class="button is-block is-info is-large is-fullwidth">Open Whatsapp</button>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+  </section>
+</body>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.17.0/jquery.validate.min.js"></script>
+
+<script>
+  $(document).ready(function () {
+    $('form').validate({
+      rules: {
+        phone: {
+          required: true,
+          digits: true
+        }
+      }
+    });
+    $('input[name="phone"]').keydown(function (e) {
+      if (e.keyCode == 8 || e.keyCode == 46) {
+        return true;
+      }
+      if (!/[0-9]/.test(e.key)) {
+        return false;
+      }
+    });
+    $('#send').click(function () {
+      if ($('form').valid()) {
+        var number = $('select[name="country"] option:selected').val() + $('input[name="phone"]').val();
+        window.open("https://api.whatsapp.com/send?phone=" + number);
+      }
+      return false;
+    });
+  });
+</script>
+
+</html>
