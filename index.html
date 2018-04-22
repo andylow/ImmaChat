@@ -7,6 +7,14 @@
   <meta name="keywords" content="ImmaChat,WhatsApp">
   <meta name="author" content="Andy Low">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-117990877-1"></script>
+  <script>
+  window.dataLayer = window.dataLayer || [];function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());gtag('config', 'UA-117990877-1');
+  </script>
+
+
   <script defer src="https://use.fontawesome.com/releases/v5.0.7/js/all.js"></script>
   <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.1/css/bulma.min.css" />
 
@@ -16,6 +24,7 @@
       font-family: 'Open Sans', serif;
       font-size: 14px;
       font-weight: 300;
+      height: 100%
     }
 
     .hero.is-success {
@@ -66,6 +75,11 @@
       background: white;
       color: #1496ed;
     }
+
+    #app-version{
+      bottom: 0;
+      position: fixed;
+    }
   </style>
 </head>
 
@@ -105,13 +119,23 @@
       </section>
     </div>
   </section>
+  <footer>
+      <div id="app-version" class="app-version"></div>
+    </footer>
 </body>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.17.0/jquery.validate.min.js"></script>
 
 <script>
+  var appVersion = "v0.1 (beta)";
+
+  document.title = document.title + " " + appVersion;
+
   $(document).ready(function () {
+
+    $('#app-version').html(appVersion);
+
     $('form').validate({
       rules: {
         phone: {
