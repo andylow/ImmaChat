@@ -25,14 +25,6 @@
 		gtag('config', 'UA-117990877-1');
 	</script>
 
-	<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-	<script>
-		(adsbygoogle = window.adsbygoogle || []).push({
-			google_ad_client: "ca-pub-7684227120793749",
-			enable_page_level_ads: true
-		});
-	</script>
-
 	<link href="https://fonts.googleapis.com/css?family=Qwigley" rel="stylesheet">
 	<!--[if lte IE 8]><script src="assets/js/ie/html5shiv.js"></script><![endif]-->
 	<link rel="stylesheet" href="assets/css/main.css" />
@@ -50,15 +42,17 @@
 
 			<!-- Header -->
 			<header id="header">
-				<h1>ImmaChat<span class="beta">(beta)</span></h1>
+				<h1>ImmaChat
+					<span class="beta">(beta)</span>
+				</h1>
 				<p>A quicker way to chat using WhatsApp.</p>
 
 				<form>
 					<div class="field">
 						<div class="control">
-							<select name="country" class="input is-large" required>
-											<option value="60" selected>Malaysia (+60)</option>
-										  </select>
+							<select id="country" name="country" class="input is-large" required>
+								<option value="60" selected>Malaysia (+60)</option>
+							</select>
 						</div>
 					</div>
 					<div class="field">
@@ -94,7 +88,8 @@
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.17.0/jquery.validate.min.js"></script>
 
 	<script>
-		var appVersion = "v0.2 (beta)";
+		var appVersion = "v0.2.1 (beta)";
+		var country = "MY";
 
 		document.title = document.title + " " + appVersion;
 
@@ -122,6 +117,30 @@
 					window.open("https://api.whatsapp.com/send?phone=" + number);
 				}
 				return false;
+			});
+
+			$.ajax({
+				url: "http://ip-api.com/json",
+				type: 'GET',
+				success: function (json) {
+					country = json.countryCode;
+				},
+				error: function (err) {
+					console.log("Request failed, error= " + err);
+				}
+			});
+
+			$.getJSON('assets/resources/country.json', (data) => {
+				$('#country').html('');
+				$.each(data, (index, item) => {
+					var option = $('<option>').val(item.callingCode).text(item.name + ' (+' + item.callingCode + ')');
+
+					if (item.code == country) {
+						option.attr('selected', 'selected');
+					}
+
+					$('#country').append(option);
+				});
 			});
 		});
 	</script>
