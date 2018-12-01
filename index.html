@@ -7,16 +7,16 @@
 <html>
 
 <head>
-	<title>ImmaChat</title>
-	<meta name="description" content="A quick way to chat with WhatsApp.">
-	<meta name="keywords" content="ImmaChat,WhatsApp">
-	<meta name="author" content="Andy Low">
-	<meta charset="utf-8" />
-	<meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>ImmaChat</title>
+    <meta name="description" content="A quick way to chat with WhatsApp.">
+    <meta name="keywords" content="ImmaChat,WhatsApp">
+    <meta name="author" content="Andy Low">
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-	<script async src="https://www.googletagmanager.com/gtag/js?id=UA-117990877-1"></script>
-	<script>
-		window.dataLayer = window.dataLayer || [];
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-117990877-1"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
 
 		function gtag() {
 			dataLayer.push(arguments);
@@ -25,130 +25,128 @@
 		gtag('config', 'UA-117990877-1');
 	</script>
 
-	<link href="https://fonts.googleapis.com/css?family=Qwigley" rel="stylesheet">
-	<!--[if lte IE 8]><script src="assets/js/ie/html5shiv.js"></script><![endif]-->
-	<link rel="stylesheet" href="assets/css/main.css" />
-	<!--[if lte IE 8]><link rel="stylesheet" href="assets/css/ie8.css" /><![endif]-->
-	<!--[if lte IE 9]><link rel="stylesheet" href="assets/css/ie9.css" /><![endif]-->
-	<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/tooltipster/3.3.0/css/tooltipster.min.css" />
+    <link href="https://fonts.googleapis.com/css?family=Qwigley" rel="stylesheet">
+    <!--[if lte IE 8]><script src="assets/js/ie/html5shiv.js"></script><![endif]-->
+    <link rel="stylesheet" href="assets/css/style.css" />
+    <!--[if lte IE 8]><link rel="stylesheet" href="assets/css/ie8.css" /><![endif]-->
+    <!--[if lte IE 9]><link rel="stylesheet" href="assets/css/ie9.css" /><![endif]-->
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
+
+    <style>
+        header{
+            text-align: center;
+            color: white;
+        }
+    </style>
 </head>
 
-<body class="loading">
-	<div id="wrapper">
-		<div class="blur">
-			<div id="bg"></div>
-		</div>
-		<div id="overlay"></div>
-		<div id="main">
+<body>
+    <header>
+        <h1>ImmaChat</h1>
+        <p>A quicker way to chat using WhatsApp.</p>
+    </header>
+    <div class="form">
+        <div class="form-content">
+            <form action="#" method="post">
+                <div class="country-div">
+                    <span class="i1"><i class="fa fa-globe" aria-hidden="true"></i></span>
+                    <select name="country" class="country" required="">
+                        <option value="60" selected>Malaysia (+60)</option>
+                    </select>
+                </div>
 
-			<!-- Header -->
-			<header id="header">
-				<h1>ImmaChat
-					<span class="beta">(beta)</span>
-				</h1>
-				<p>A quicker way to chat using WhatsApp.</p>
+                <div class="phone-div">
+                    <span class="i1"><i class="fa fa-phone" aria-hidden="true"></i></span>
+                    <input class="phone" type="tel" name="phone" placeholder="Phone number" required="">
+                </div>
 
-				<form>
-					<div class="field">
-						<div class="control">
-							<select id="country" name="country" class="input" required>
-								<option value="60" selected>Malaysia (+60)</option>
-							</select>
-						</div>
-					</div>
-					<div class="field">
-						<div class="control">
-							<input name="phone" class="input tooltip" type="tel" placeholder="Phone Number" autofocus="" required
-							title="Input the phone number you wanna chat with."
-							/>
-						</div>
-					</div>
-					<button id="send" class="button">Open WhatsApp !</button>
-				</form>
-			</header>
+                <div class="submit-agileits">
+                    <input id="send" class="login" type="submit" value="Open Whatsapp">
+                </div>
+            </form>
+        </div>
+    </div>
 
-			<!-- Footer -->
-			<footer id="footer">
-				<span id="app-version" class="copyright">v0.2 (beta)</span>
-			</footer>
+    <footer id="footer">
+        <span id="app-version" class="copyright">v0.3 (beta)</span>
+    </footer>
+    <!--[if lte IE 8]><script src="assets/js/ie/respond.min.js"></script><![endif]-->
+    <script>
+        window.onload = function () {
+            document.body.className = '';
+        }
+        window.ontouchmove = function () {
+            return false;
+        }
+        window.onorientationchange = function () {
+            document.body.scrollTop = 0;
+        }
+    </script>
 
-		</div>
-	</div>
-	<!--[if lte IE 8]><script src="assets/js/ie/respond.min.js"></script><![endif]-->
-	<script>
-		window.onload = function () {
-			document.body.className = '';
-		}
-		window.ontouchmove = function () {
-			return false;
-		}
-		window.onorientationchange = function () {
-			document.body.scrollTop = 0;
-		}
-	</script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.17.0/jquery.validate.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/tooltipster/3.3.0/js/jquery.tooltipster.min.js"></script>
 
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.17.0/jquery.validate.min.js"></script>
-	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/tooltipster/3.3.0/js/jquery.tooltipster.min.js"></script>
+    <script>
+        var appVersion = "v0.3 (beta)";
+        var country = "MY";
 
-	<script>
-		var appVersion = "v0.2.2 (beta)";
-		var country = "MY";
+        document.title = document.title + " " + appVersion;
 
-		document.title = document.title + " " + appVersion;
+        $(document).ready(function () {
+            $('#app-version').html(appVersion);
+            // $('.tooltip').tooltipster();
+            $('form').validate({
+                rules: {
+                    phone: {
+                        required: true,
+                        digits: true
+                    }
+                }
+            });
+            $('input[name="phone"]').keydown(function (e) {
+                if (e.keyCode == 8 || e.keyCode == 46) {
+                    return true;
+                }
+                if (!/[0-9]/.test(e.key)) {
+                    return false;
+                }
+            });
+            $('#send').click(function () {
+                if ($('form').valid()) {
+                    var number = $('select[name="country"] option:selected').val() + $(
+                        'input[name="phone"]').val();
+                    window.open("https://api.whatsapp.com/send?phone=" + number);
+                }
+                return false;
+            });
 
-		$(document).ready(function () {
-			$('#app-version').html(appVersion);
-			$('.tooltip').tooltipster();
-			$('form').validate({
-				rules: {
-					phone: {
-						required: true,
-						digits: true
-					}
-				}
-			});
-			$('input[name="phone"]').keydown(function (e) {
-				if (e.keyCode == 8 || e.keyCode == 46) {
-					return true;
-				}
-				if (!/[0-9]/.test(e.key)) {
-					return false;
-				}
-			});
-			$('#send').click(function () {
-				if ($('form').valid()) {
-					var number = $('select[name="country"] option:selected').val() + $('input[name="phone"]').val();
-					window.open("https://api.whatsapp.com/send?phone=" + number);
-				}
-				return false;
-			});
+            $.ajax({
+                url: "http://ip-api.com/json",
+                type: 'GET',
+                success: function (json) {
+                    country = json.countryCode;
+                },
+                error: function (err) {
+                    console.log("Request failed, error= " + err);
+                }
+            });
 
-			$.ajax({
-				url: "http://ip-api.com/json",
-				type: 'GET',
-				success: function (json) {
-					country = json.countryCode;
-				},
-				error: function (err) {
-					console.log("Request failed, error= " + err);
-				}
-			});
+            $.getJSON('assets/resources/country.json', (data) => {
+                $('#country').html('');
+                $.each(data, (index, item) => {
+                    var option = $('<option>').val(item.callingCode).text(item.name + ' (+' +
+                        item.callingCode + ')');
 
-			$.getJSON('assets/resources/country.json', (data) => {
-				$('#country').html('');
-				$.each(data, (index, item) => {
-					var option = $('<option>').val(item.callingCode).text(item.name + ' (+' + item.callingCode + ')');
+                    if (item.code == country) {
+                        option.attr('selected', 'selected');
+                    }
 
-					if (item.code == country) {
-						option.attr('selected', 'selected');
-					}
-
-					$('#country').append(option);
-				});
-			});
-		});
-	</script>
+                    $('#country').append(option);
+                });
+            });
+        });
+    </script>
 </body>
 
 </html>
