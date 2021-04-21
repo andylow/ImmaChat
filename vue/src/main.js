@@ -1,12 +1,13 @@
 import Vue from 'vue'
-import VueTelInput from "vue-tel-input";
 import VueMobileDetection from "vue-mobile-detection";
 import App from './App.vue'
-import 'vue-tel-input/dist/vue-tel-input.css'
+import vuetify from './plugins/vuetify';
+import VueTelInputVuetify from 'vue-tel-input-vuetify/lib';
 
-Vue.use(VueTelInput);
 Vue.use(VueMobileDetection);
+Vue.use(VueTelInputVuetify, {vuetify,});
 
 new Vue({
-  render: h => h(App),
+  vuetify,
+  render: h => h(App)
 }).$mount('#app')

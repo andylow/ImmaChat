@@ -3,7 +3,7 @@
     <h1 class="logo-font">ImmaChat</h1>
     <div v-if="$isMobile()" id="main">
       <p>A quicker way to text using WhatsApp.</p>
-      <vue-tel-input id="phone" v-model="phone" :defaultCountry="60" :required="true" :enabledCountryCode="true" :validCharactersOnly="true" v-on:input="onChange"/>
+      <vue-tel-input-vuetify id="phone" v-model="phone" :required="true" :preferred-countries="['my']" :valid-characters-only="true" v-on:input="onChange"/>
       <button id="submit" :disabled="!submitEnabled" v-on:click="submit">Open WhatsApp</button>
     </div>
     <div id="desktop" v-else>
