@@ -16,7 +16,6 @@ import PhoneNumber from "awesome-phonenumber";
 
 const histories = ref([]);
 onMounted(() => {
-  console.log(localStorage);
   if (localStorage.getItem("numbers")) {
     try {
       histories.value = JSON.parse(localStorage.getItem("numbers"));

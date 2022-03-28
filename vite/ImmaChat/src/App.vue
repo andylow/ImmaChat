@@ -7,28 +7,29 @@ import history from "./components/History.vue";
 import background from "./components/Background.vue";
 
 const COUNTRY_API =
-  "https://restcountries.eu/rest/v2/all?fields=name;callingCodes;alpha2Code";
-const MYIP_COUNTRY_API = "https://ip2c.org/s";
+  "https://restcountries.com/v2/all?fields=name,callingCodes,alpha2Code";
+const MYIP_COUNTRY_API = "https://ip2c.org/self";
+const SELF_COUNTRY_API = "http://api.ip2c.info/json/";
 
-const tab = ref("Home");
 const phoneNumber = ref(null);
 const countryCode = ref("MY");
 const countries = ref([
   { name: "Malaysia", alpha2Code: "MY", callingCodes: ["60"] },
 ]);
+
 onMounted(async () => {
   const countryResp = await fetch(COUNTRY_API);
   countries.value = await countryResp.json();
 
-  const ipResp = await fetch(MYIP_COUNTRY_API);
   try {
+    const ipResp = await fetch(MYIP_COUNTRY_API);
     const country = (await ipResp.text()).substr(2, 2);
     const found = countries.value.find((i) => i.alpha2Code == country);
     if (found) {
       countryCode.value = found.alpha2Code;
     }
   } catch (e) {
-    console.log(e);
+    console.error(e);
   }
 });
 
@@ -41,7 +42,7 @@ async function paste() {
   const text = await navigator.clipboard.readText();
   if (isValidPhone(text)) {
     const pn = PhoneNumber(text, countryCode.value);
-    console.log(pn.getNumber());
+
     if (pn.isValid) {
       phoneNumber.value = pn.getNumber("significant");
     }
@@ -55,7 +56,6 @@ function open() {
       whatsapp(pn.getNumber().replace("+", ""));
 
       if (localStorage.getItem("numbers")) {
-        console.log(localStorage.getItem("numbers"));
         let array = JSON.parse(localStorage.getItem("numbers"));
         if (array instanceof Array) {
           array.push(pn.getNumber("international"));
@@ -63,7 +63,6 @@ function open() {
           array = [pn.getNumber("international")];
         }
         const set = new Set(array);
-        console.log(set);
         localStorage.setItem("numbers", JSON.stringify([...set]));
       } else {
         localStorage.setItem(
@@ -82,15 +81,50 @@ function open() {
 function whatsapp(number) {
   window.open("https://api.whatsapp.com/send?phone=" + number.replace("+", ""));
 }
-
-function navTo(value) {
-  tab.value = value;
-}
 </script>
 
 <template>
-  <background></background>
-  <div class="container">
+  <div class="common-layout">
+    <background></background>
+    <el-container>
+      <el-main>
+        <el-tabs :stretch="true" tab-position="bottom">
+          <el-tab-pane label="Home">
+            <div class="header">
+              <div class="title">ImmaChat</div>
+              <div class="sub-title">A quicker way to text using WhatsApp.</div>
+            </div>
+            <div class="main">
+              <el-select class="country-code" v-model="countryCode" filterable>
+                <el-option
+                  v-for="c in countries"
+                  :label="`+${c.callingCodes[0]} - ${c.alpha2Code}`"
+                  :value="c.alpha2Code"
+                ></el-option>
+              </el-select>
+              <el-input
+                class="phone-number"
+                placeholder="Phone Number"
+                v-model="phoneNumber"
+                clearable
+                oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');"
+              ></el-input>
+            </div>
+            <el-row class="btn-row">
+              <el-button round style="width: 30%" @click="paste"
+                >Paste</el-button
+              >
+              <el-button type="success" round style="width: 65%" @click="open"
+                >Open Whatsapp</el-button
+              >
+            </el-row>
+          </el-tab-pane>
+          <el-tab-pane label="History"><history></history></el-tab-pane>
+        </el-tabs>
+      </el-main>
+    </el-container>
+  </div>
+  <!-- <div class="container">
     <div v-if="tab == 'Home'">
       <div class="header">
         <div class="title">ImmaChat</div>
@@ -142,7 +176,7 @@ function navTo(value) {
         </div>
       </div>
     </div>
-  </div>
+  </div> -->
 </template>
 
 <style>
@@ -153,41 +187,29 @@ body {
   font-family: "ZCOOL XiaoWei", serif;
 }
 
-.navbar {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  align-items: center;
-  height: 3rem;
-  box-shadow: -1px -1px 30px black;
-  background-color: white;
-}
-.navbar-item {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100%;
-  width: 100%;
-  border-top: 1px solid gray;
-  border-left: 1px solid gray;
-  font-size: 1.3rem;
-  color: gray;
+.el-main,
+.el-tabs {
+  margin: 0;
+  padding: 0;
 }
 
-.active {
-  color: rgb(230, 230, 255);
+.el-tabs__content {
+  height: calc(100vh - 50px);
+}
+
+.el-tabs__item {
+  color: #000;
+  border: 1px solid rgb(141, 141, 141);
+  padding: 0;
+}
+
+.el-tabs__item.is-active {
+  color: #fff;
   background-color: rgb(55, 63, 173);
 }
 
-.container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  height: 100vh;
-  justify-content: space-between;
-}
-
 .header {
-  height: 30vh;
+  padding-bottom: 20px;
   width: 100%;
   display: flex;
   flex-direction: column;
@@ -200,6 +222,7 @@ body {
   font-family: "Qwigley", cursive;
   font-size: 5.5em;
 }
+
 .main {
   display: flex;
   justify-content: center;
@@ -222,20 +245,10 @@ body {
   overflow: auto;
   padding: 10px;
 }
-.footer {
-  /* position: fixed; */
-  left: 0;
-  bottom: 0;
-  width: 100%;
-  text-align: center;
-}
 
-@media screen and (min-width: 600px) {
-  .main {
-    max-width: 50%;
-  }
-  .btn-row {
-    max-width: 50%;
+@media screen and (min-height: 480px) {
+  .header {
+    height: 30vh;
   }
 }
 </style>
