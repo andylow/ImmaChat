@@ -193,10 +193,15 @@ body {
   padding: 0;
 }
 
-.el-tabs__content {
+/* .el-tabs__content {
   height: calc(100vh - (50px + env(safe-area-inset-bottom)));
-}
+} */
 
+.el-tabs__header {
+  position: fixed;
+  width: 100%;
+  bottom: calc(0px + env(safe-area-inset-bottom));
+}
 
 .el-tabs__item {
   color: #000;
