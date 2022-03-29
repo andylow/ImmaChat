@@ -194,9 +194,9 @@ body {
 }
 
 .el-tabs__content {
-  height: calc(100vh - 50px);
-  padding-bottom: env(safe-area-inset-bottom)
+  height: calc(100vh - (50px + env(safe-area-inset-bottom)));
 }
+
 
 .el-tabs__item {
   color: #000;
